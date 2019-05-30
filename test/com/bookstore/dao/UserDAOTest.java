@@ -95,6 +95,7 @@ public class UserDAOTest {
 	}
 	@Test
 	public void testCount() {
+		
 		long totalUsers = userDAO.count();
 		System.out.println(totalUsers);
 		assertEquals(2, totalUsers);
