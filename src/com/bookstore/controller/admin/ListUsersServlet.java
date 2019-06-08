@@ -1,6 +1,7 @@
 package com.bookstore.controller.admin;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,24 +10,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bookstore.entity.Users;
+import com.bookstore.service.UserServices;
 
-@WebServlet("/admin")
-public class AdminHomeServlet extends HttpServlet {
+@WebServlet("/admin/list_users")
+public class ListUsersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-    public AdminHomeServlet() {
-        super();
        
+
+    public ListUsersServlet() {
+        super();
+      
     }
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String homePage= "index.jsp";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(homePage);		
-		dispatcher.forward(request, response);
+		UserServices userServices = new UserServices(request, response);
+		
+		userServices.listUser();
+		
+		
 	}
 
-	
-	
+
 
 }

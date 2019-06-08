@@ -17,25 +17,32 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "Users.findAll", query= "select u from Users u Order by u.fullName"),
+	@NamedQuery(name = "Users.findByEmail", query= "select u from Users u Where u.email = :email"),
 	@NamedQuery(name = "Users.countAll", query = "select Count(*) from Users u")
 })
 @Table(name = "users", catalog = "bookstoredb", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+
+
 public class Users implements java.io.Serializable {
 
 	private Integer userId;
 	private String email;
-	private String password;
 	private String fullName;
+	private String password;
 
 	public Users() {
 	}
-
-	public Users(String email, String password, String fullName) {
+	public Users(String email, String fullName, String password) {
 		this.email = email;
 		this.password = password;
 		this.fullName = fullName;
 	}
 
+
+	
+	
+
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
