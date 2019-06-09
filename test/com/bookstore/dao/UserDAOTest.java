@@ -8,9 +8,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
 import org.junit.AfterClass;
@@ -19,16 +16,13 @@ import org.junit.Test;
 
 import com.bookstore.entity.Users;
 
-public class UserDAOTest {
-	private static EntityManagerFactory entityManagerFactory;
-	private static EntityManager entityManager;
+public class UserDAOTest extends BaseDAOTest{
+	
 	private static UserDAO userDAO;
 
 	@BeforeClass
-	public static void setupClass() {
-		entityManagerFactory = Persistence.createEntityManagerFactory("BookStoreWebSite");
-
-		entityManager = entityManagerFactory.createEntityManager();
+	public static void setupClass() throws Exception {
+		BaseDAOTest.setUpBeforeClass();
 		userDAO = new UserDAO(entityManager);
 	}
 
@@ -102,9 +96,8 @@ public class UserDAOTest {
 	}
 
 	@AfterClass
-	public static void tearDownClass() {
-		entityManager.close();
-		entityManagerFactory.close();
+	public static void tearDownClass() throws Exception {
+		BaseDAOTest.tearDownAfterClass();
 
 	}
 }

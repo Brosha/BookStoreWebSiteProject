@@ -20,7 +20,7 @@ public class JpaDAO<T> {
 		
 		entityManager.persist(t);
 		entityManager.flush();
-		entityManager.refresh(t);
+		entityManager.refresh(t);		
 		entityManager.getTransaction().commit();
 		
 		return t;
