@@ -52,12 +52,14 @@ public class UserServices {
 		if(existUser==null) {
 			userDAO.create(newUser);
 			request.setAttribute("message", "New user created successfully");
-			listUser();}
-		
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/list_users");
+			
+			requestDispatcher.forward(request, response);
+		}
 		else {
-			String message = "Could not create user. A user with emai "+email+" already exists";
+			String message = "Could not create user. A user with email "+email+" already exists";
 			request.setAttribute("message", message);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("user_form.jsp");
 			
 			requestDispatcher.forward(request, response);
 			
@@ -72,10 +74,18 @@ public class UserServices {
 		int userId = Integer.parseInt(request.getParameter("id"));
 				
 		Users user = userDAO.get(userId );
-		
-		String editPage ="user_form.jsp";
+		String page;
+		if (user!=null) {
+		page ="user_form.jsp";
 		request.setAttribute("user", user);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPage);
+		}
+		else {
+			String message = "Could not find user with" + userId;
+			page = "message.jsp";
+			request.setAttribute("message", message);
+			
+		}
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(page);
 		requestDispatcher.forward(request, response);
 	}
 	public void updateUser() throws ServletException, IOException {
@@ -109,4 +119,13 @@ public class UserServices {
 		}
 		
 	}
+	public void deleteUser() throws ServletException, IOException {
+		int userId = Integer.parseInt(request.getParameter("id"));
+		userDAO.delete(userId);
+		request.setAttribute("message", "User "+userId+ " has been deleted successfully");
+		request.removeAttribute("id");
+		listUser();
+		}
+		
+	
 }
