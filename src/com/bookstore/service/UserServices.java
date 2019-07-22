@@ -16,13 +16,13 @@ import com.bookstore.dao.UserDAO;
 
 public class UserServices {
 	private UserDAO userDAO;
-	private EntityManagerFactory entityManagerFactory;
+	
 	private EntityManager entityManager;
 	private HttpServletRequest request;
 	private HttpServletResponse response;
-	public UserServices(HttpServletRequest request, HttpServletResponse response) {
-		entityManagerFactory = Persistence.createEntityManagerFactory("BookStoreWebSite");
-		entityManager = entityManagerFactory.createEntityManager();
+	public UserServices(EntityManager entityManager ,HttpServletRequest request, HttpServletResponse response) {
+		
+		this.entityManager = entityManager;
 		userDAO= new UserDAO(entityManager);
 		this.response = response;
 		this.request = request;
@@ -52,9 +52,7 @@ public class UserServices {
 		if(existUser==null) {
 			userDAO.create(newUser);
 			request.setAttribute("message", "New user created successfully");
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/list_users");
-			
-			requestDispatcher.forward(request, response);
+			listUser();
 		}
 		else {
 			String message = "Could not create user. A user with email "+email+" already exists";
@@ -114,8 +112,11 @@ public class UserServices {
 		}
 			
 		else {	userDAO.update(editedUser);
-			request.setAttribute("message", "User has been updated successfully");
-			listUser();
+			//request.setAttribute("message", "User has been updated successfully");
+			
+			request.getSession().setAttribute("messageUpdate", "User has been updated successfully");
+			response.sendRedirect("/BookStoreWebSite/admin/list_users");
+			
 		}
 		
 	}
