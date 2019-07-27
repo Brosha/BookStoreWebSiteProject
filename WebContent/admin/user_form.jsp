@@ -82,21 +82,21 @@
 		var fieldPassword = document.getElementById("password");
 		if (fieldEmail.value.length == 0) {
 			alert("Email is requiered!");
-			field.focus();
+			fieldEmail.focus();
 			return false;
 		}
 
 		if (fieldFullName.value.length == 0) {
 			alert("Full Name is requiered!");
-			field.focus();
+			fieldFullName.focus();
 			return false;
 		}
 		if (fieldPassword.value.length == 0) {
 			alert("Password is requiered!");
-			field.focus();
+			fieldPassword.focus();
 			return false;
 		}
-		return true;
+		
 
 	}
 </script>
