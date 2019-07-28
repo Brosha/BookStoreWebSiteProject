@@ -4,46 +4,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Create new User</title>
+	<meta charset="ISO-8859-1">
+	<title>Create new User</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.validate.js"></script>
 </head>
 <body>
 	<jsp:directive.include file="header.jsp" />
+	
+	<div align="center">
+		<h2 class="pageheading">
+			<c:if test="${user !=null}">
+		
+				Edit User
+			</c:if>
+			<c:if test="${user ==null}">
+		
+				Create new User	
 
-	<c:if test="${user !=null}">
-		<div align="center">
-			<h2>Edit User</h2>
-		</div>
-
-	</c:if>
-	<c:if test="${user ==null}">
-		<div align="center">
-			<h2>Create new User</h2>
-		</div>
-
-	</c:if>
+			</c:if>
+		</h2>	
+	</div>
 
 	<c:if test="${message !=null}">
 		<div align="center">
-			<h3>${message}</h3>
+			<h4 class = "message">${message}</h4>
 		</div>
 	</c:if>
 
 	<div align="center">
 		<c:if test="${user !=null}">
-			<form action="update_user" method="post"
-				onsubmit="return validateFormInput()">
+			<form action="update_user" method="post" id="userForm">
 				<input type="hidden" name="userId" value="${user.userId}">
 		</c:if>
 
 		<c:if test="${user ==null}">
-			<form action="create_user" method="post"
-				onsubmit="return validateFormInput()">
-		</c:if>
-
-		<form action="create_user" method="post"
-			onsubmit="return validateFormInput()">
-			<table>
+			<form action="create_user" method="post" id="userForm">
+		</c:if>		
+			<table class="form">
 				<tr>
 					<td align="right">Email</td>
 					<td align="left"><input type="text" id="email" name="email"
@@ -64,9 +63,9 @@
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center"><input type="submit"
-						value="Save"> <input type="button" value="Cancel"
-						onclick="javascript:history.go(-1);"></td>
+					<td colspan="2" align="center">
+					<input type="submit"value="Save">
+					<input type="button" value="Cancel"	onclick="javascript:history.go(-1);"></td>
 			</table>
 		</form>
 
@@ -76,29 +75,34 @@
 	<jsp:directive.include file="footer.jsp" />
 </body>
 <script type="text/javascript">
-	function validateFormInput() {
-		var fieldEmail = document.getElementById("email");
-		var fieldFullName = document.getElementById("fullname");
-		var fieldPassword = document.getElementById("password");
-		if (fieldEmail.value.length == 0) {
-			alert("Email is requiered!");
-			fieldEmail.focus();
-			return false;
-		}
 
-		if (fieldFullName.value.length == 0) {
-			alert("Full Name is requiered!");
-			fieldFullName.focus();
-			return false;
-		}
-		if (fieldPassword.value.length == 0) {
-			alert("Password is requiered!");
-			fieldPassword.focus();
-			return false;
-		}
-		
 
-	}
+	$(document).ready(function() {
+		$("#userForm").validate({
+			rules:{
+				email: {
+					required: true,
+					email: true
+				},
+				fullname: "required",
+				password: "required",				
+			},
+			 messages:{
+				 email: {
+					required: "Please enter email",
+					email: "Pleasr enter an valid email address"
+				 },
+				 fullname: "Please enter full name",
+				 password: "Please enter password"
+			 }
+			
+			
+		});				
+	} );
+	
+	
+
+	
 </script>
 
 </html>
