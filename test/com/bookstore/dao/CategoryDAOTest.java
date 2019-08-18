@@ -45,8 +45,8 @@ public class CategoryDAOTest extends BaseDAOTest {
 
 	@Test
 	public void testUpdateCategory() {
-		Category category = new Category("Python 3");
-		category.setCategoryId(3);
+		Category category = new Category("Java Core");
+		category.setCategoryId(4);
 		Category newCat = categoryDAO.update(category);
 		assertEquals(category.getName(), newCat.getName());
 		

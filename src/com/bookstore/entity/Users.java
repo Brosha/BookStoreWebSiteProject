@@ -18,6 +18,7 @@ import javax.persistence.UniqueConstraint;
 @NamedQueries({
 	@NamedQuery(name = "Users.findAll", query= "select u from Users u Order by u.fullName"),
 	@NamedQuery(name = "Users.findByEmail", query= "select u from Users u Where u.email = :email"),
+	@NamedQuery(name = "Users.checkLogin", query= "select u from Users u Where u.email = :email AND u.password=:password"),
 	@NamedQuery(name = "Users.countAll", query = "select Count(*) from Users u")
 })
 @Table(name = "users", catalog = "bookstoredb", uniqueConstraints = @UniqueConstraint(columnNames = "email"))

@@ -35,7 +35,7 @@
 	<div align="center">
 		<c:if test="${category !=null}">
 			<form action="update_category" method="post" id="categoryForm">
-				<input type="hidden" name="categoryId" value="${category.categoryId}"></form>
+				<input type="hidden" name="categoryId" value="${category.categoryId}">
 		</c:if>
 
 		<c:if test="${category ==null}">
@@ -58,7 +58,7 @@
 					
 					<td colspan="2" align="center">
 					<button type="submit">Save</button> 
-					<button type="reset" onclick="javascript:history.go(-1);">Cancel</button> 
+					<button type="reset" id="buttonCancel">Cancel</button>
 				</td>	
 						
 						
@@ -87,7 +87,13 @@
 				 
 			 }			
 			
-		});				
+		});
+		
+		$("#buttonCancel").click(function() {
+			history.go(-1);
+			
+		});
+		
 	} );
 	
 	

@@ -1,6 +1,7 @@
 package com.bookstore.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -30,9 +31,9 @@ public class UserDAOTest extends BaseDAOTest{
 	public void testCreateUsers() {
 
 		Users user1 = new Users();
-		user1.setEmail("tommy@gmail.com");
-		user1.setFullName("Big Tom");
-		user1.setPassword("great");
+		user1.setEmail("Testim.com");
+		user1.setFullName("Tim");
+		user1.setPassword("bgl");
 
 		user1 = userDAO.create(user1);
 
@@ -93,6 +94,14 @@ public class UserDAOTest extends BaseDAOTest{
 		long totalUsers = userDAO.count();
 		System.out.println(totalUsers);
 		assertEquals(2, totalUsers);
+	}
+	
+	@Test
+	public void testCheckLoginSuccess() {
+		String email="gmail.com";
+		String password = "Spudi";
+		assertFalse(userDAO.checkLogin(email, password));
+		
 	}
 
 	@AfterClass

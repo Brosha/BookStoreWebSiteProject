@@ -64,8 +64,8 @@
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-					<input type="submit"value="Save">
-					<input type="button" value="Cancel"	onclick="javascript:history.go(-1);"></td>
+					<button type="submit">Save</button> 
+					<button type="reset" id="buttonCancel">Cancel</button></td>
 			</table>
 		</form>
 
@@ -97,7 +97,12 @@
 			 }
 			
 			
-		});				
+		});
+		
+		$("#buttonCancel").click(function() {
+			history.go(-1);
+			
+		});
 	} );
 	
 	

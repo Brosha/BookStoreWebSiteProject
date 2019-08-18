@@ -1,6 +1,7 @@
 package com.bookstore.entity;
-// Generated 30.05.2019 22:28:41 by Hibernate Tools 5.2.12.Final
+// Generated 10.08.2019 20:21:53 by Hibernate Tools 5.2.12.Final
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,10 +13,14 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 /**
@@ -23,6 +28,13 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "book", catalog = "bookstoredb", uniqueConstraints = @UniqueConstraint(columnNames = "title"))
+@NamedQueries({
+	@NamedQuery(name = "Book.findAll", query =" select b from Book b"),
+	@NamedQuery(name = "Book.findByTitle", query= "select b from Book b where b.title =:title"),
+	@NamedQuery(name = "Book.countAll", query= "select count(*) from Book b "),
+	@NamedQuery(name = "Book.findByCategory", query= "select b from Book b JOIN"
+			+ " Category c ON b.category.categoryId = c.categoryId AND c.categoryId =:catId"),
+})
 public class Book implements java.io.Serializable {
 
 	private Integer bookId;
@@ -31,45 +43,48 @@ public class Book implements java.io.Serializable {
 	private String author;
 	private String description;
 	private String isbn;
+	private byte[] image;
 	private float price;
 	private Date publishDate;
 	private Date lastUpdateTime;
 	private Set<Review> reviews = new HashSet<Review>(0);
 	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
+	private String base64Image;
 
 	public Book() {
 	}
 
 	public Book(Category category, String title, String author, String description, String isbn, float price,
-			Date publishDate, Date lastUpdateTime) {
+			Date lastUpdateTime) {
 		this.category = category;
 		this.title = title;
 		this.author = author;
 		this.description = description;
 		this.isbn = isbn;
 		this.price = price;
-		this.publishDate = publishDate;
 		this.lastUpdateTime = lastUpdateTime;
 	}
 
-	public Book(Category category, String title, String author, String description, String isbn, float price,
-			Date publishDate, Date lastUpdateTime, Set<Review> reviews, Set<OrderDetail> orderDetails) {
+	public Book(Category category, String title, String author, String description, String isbn, byte[] image,
+			float price, Date publishDate, Date lastUpdateTime, Set<Review> reviews, Set<OrderDetail> orderDetails) {
 		this.category = category;
 		this.title = title;
 		this.author = author;
 		this.description = description;
 		this.isbn = isbn;
+		this.image = image;
 		this.price = price;
 		this.publishDate = publishDate;
 		this.lastUpdateTime = lastUpdateTime;
 		this.reviews = reviews;
 		this.orderDetails = orderDetails;
+		
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = " book_id", unique = true, nullable = false)
+	@Column(name = "book_id", unique = true, nullable = false)
 	public Integer getBookId() {
 		return this.bookId;
 	}
@@ -124,6 +139,15 @@ public class Book implements java.io.Serializable {
 		this.isbn = isbn;
 	}
 
+	@Column(name = "image")
+	public byte[] getImage() {
+		return this.image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
 	@Column(name = "price", nullable = false, precision = 12, scale = 0)
 	public float getPrice() {
 		return this.price;
@@ -134,7 +158,7 @@ public class Book implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "publish_date", nullable = false, length = 10)
+	@Column(name = "publish_date", length = 10)
 	public Date getPublishDate() {
 		return this.publishDate;
 	}
@@ -170,5 +194,42 @@ public class Book implements java.io.Serializable {
 	public void setOrderDetails(Set<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
+	
+	@Transient
+	public String getBase64Image() {
+		this.base64Image = Base64.getEncoder().encodeToString(this.image);
+		return this.base64Image;
+		
+	}
+	@Transient
+	public void setBase64Image(String image) {
+		this.base64Image=image;
+	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bookId == null) ? 0 : bookId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		if (bookId == null) {
+			if (other.bookId != null)
+				return false;
+		} else if (!bookId.equals(other.bookId))
+			return false;
+		return true;
+	}
+	
+	
 }
