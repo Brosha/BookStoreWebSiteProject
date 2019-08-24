@@ -5,7 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Books in ${category} here</title>
-<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <body>
@@ -15,7 +15,7 @@
 	</div>
 	<div align="center" style="width: 80%; margin: 0 auto;">
 		<c:forEach items="${listBooks}" var="book">
-			<div style="float: left;display: inline-block; margin: 20px">
+			<div style="display: inline-block; margin: 20px">
 				<div>
 					<a href="view_book?id=${book.bookId}">
 						<img src="data:image/jpg;base64,${book.base64Image}" width="128" height="164"/>

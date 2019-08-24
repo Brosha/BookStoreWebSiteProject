@@ -208,6 +208,40 @@ public class BookServices {
 	}
 
 
+
+	public void viewBookDetails() throws ServletException, IOException {
+		int bookId = Integer.parseInt(request.getParameter("id"));
+		Book book = bookDAO.get(bookId);
+		
+		List<Category> listCategory  = categoryDAO.listAll();		
+		request.setAttribute("listCategory", listCategory);
+		request.setAttribute("book", book);
+		String detailPage = "frontend/book_detail.jsp";		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(detailPage);
+		requestDispatcher.forward(request, response);
+	}
+
+
+
+	public void search() throws ServletException, IOException {
+		String keyword= request.getParameter("keyword");
+		List<Book> listBooks =null;
+		if(keyword.equals("")) {
+			listBooks = bookDAO.listAll();
+		}
+		else {
+			listBooks= bookDAO.search(keyword);
+		}				
+				
+		request.setAttribute("listBooks", listBooks);
+	
+		request.setAttribute("keyword", keyword);
+		String searchPage = "frontend/search_result.jsp";		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(searchPage);
+		requestDispatcher.forward(request, response);
+	}
+
+
 	
 	
 

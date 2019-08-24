@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.bookstore.entity.Book;
 
@@ -60,6 +61,25 @@ public class BookDAO extends JpaDAO<Book> implements GenericDAO<Book> {
 		List<Book> listBooks= super.findWithNamedQuery("Book.findByCategory", "catId", categoryId);
 		return listBooks;
 	}
+	
+	public List<Book> listNewBooks(){
+		
+		Query query = entityManager.createNamedQuery("Book.listNew");
+		query.setFirstResult(0);
+		query.setMaxResults(4);
+		
+		return query.getResultList();		
+		
+		
+	}
+	
+	public List<Book> search(String keyword){
+		
+		return super.findWithNamedQuery("Book.search", "keyword", keyword);
+		
+	}
+	
+	
 	@Override
 	public long count() {
 		

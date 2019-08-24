@@ -139,6 +139,17 @@ public class BookDAOTest extends BaseDAOTest{
 		}
 		
 	}
+	
+	@Test
+	public void testListNewBooks() {
+		List<Book> listBooks = bookDao.listNewBooks();
+		for (Book book : listBooks) {
+			System.out.println(book.getTitle() + "  "+ book.getPublishDate());
+		}
+		assertTrue(listBooks.size()==4);
+		
+	}
+	
 
 	@Test
 	public void testCount() {
@@ -150,8 +161,39 @@ public class BookDAOTest extends BaseDAOTest{
 		Book book = bookDao.findByTitle("Effective Java (3nd Edition)");
 		assertTrue(book.getTitle().equals("Effective Java (3nd Edition)"));
 		
-		
+	}
+	
+	@Test 
+	public void testSearchBook() {
+		String keyword = "Java";
+		List<Book> books = bookDao.search(keyword);
+		for (Book book : books) {
+			System.out.println(book.getTitle());
+		}
+		assertTrue(books.size()==6);
 		
 	}
+	
+	@Test 
+	public void testSearchBookInAuthor() {
+		String keyword = "Joshua";
+		List<Book> books = bookDao.search(keyword);
+		for (Book book : books) {
+			System.out.println(book.getTitle());
+		}
+		assertTrue(books.size()==1);
+		
+	}
+	@Test 
+	public void testSearchBookInDescription() {
+		String keyword = "Enterprise";
+		List<Book> books = bookDao.search(keyword);
+		for (Book book : books) {
+			System.out.println(book.getTitle());
+		}
+		assertTrue(books.size()==1);
+		
+	}
+	
 
 }
