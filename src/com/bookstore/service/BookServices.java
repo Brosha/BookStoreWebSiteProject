@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,21 +23,21 @@ import com.bookstore.entity.Category;
 public class BookServices {
 	
 	private BookDAO bookDAO;	
-	private EntityManager entityManager;
+	
 	private HttpServletRequest request;
 	private CategoryDAO categoryDAO;
 	private HttpServletResponse response;
 	
 	
 	
-	public BookServices(EntityManager entityManager, HttpServletRequest request,
+	public BookServices(HttpServletRequest request,
 			HttpServletResponse response) {
 		super();
-		this.bookDAO = new BookDAO(entityManager);
-		this.entityManager = entityManager;
+		this.bookDAO = new BookDAO();
+	
 		this.request = request;
 		this.response = response;
-		categoryDAO = new CategoryDAO(entityManager);
+		categoryDAO = new CategoryDAO();
 	}
 
 
@@ -133,7 +133,7 @@ public class BookServices {
 		String message = "Book has been updated successfully";
 		
 		request.getSession().setAttribute("messageUpdate", message);
-		response.sendRedirect("/BookStoreWebSite/admin/book_list");
+		response.sendRedirect("/BookStoreWebSite/admin/list_books");
 		
 		
 	}
@@ -196,8 +196,7 @@ public class BookServices {
 		int categoryId = Integer.parseInt(request.getParameter("id"));
 		List<Book> listBooks= bookDAO.listByCategory(categoryId);
 		request.setAttribute("listBooks", listBooks);		
-		List<Category> listCategory  = categoryDAO.listAll();		
-		request.setAttribute("listCategory", listCategory);
+		
 		Category category = categoryDAO.get(categoryId);
 		request.setAttribute("category", category);
 		String listPage = "frontend/books_list_by_category.jsp";		
@@ -211,10 +210,7 @@ public class BookServices {
 
 	public void viewBookDetails() throws ServletException, IOException {
 		int bookId = Integer.parseInt(request.getParameter("id"));
-		Book book = bookDAO.get(bookId);
-		
-		List<Category> listCategory  = categoryDAO.listAll();		
-		request.setAttribute("listCategory", listCategory);
+		Book book = bookDAO.get(bookId);		
 		request.setAttribute("book", book);
 		String detailPage = "frontend/book_detail.jsp";		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(detailPage);

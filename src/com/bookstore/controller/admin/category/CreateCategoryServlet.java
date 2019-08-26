@@ -8,11 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bookstore.controller.BaseServlet;
 import com.bookstore.service.CategoryServices;
 import com.bookstore.service.UserServices;
 @WebServlet("/admin/create_category")
-public class CreateCategoryServlet extends com.bookstore.controller.BaseServlet {
+public class CreateCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 
@@ -26,7 +25,7 @@ public class CreateCategoryServlet extends com.bookstore.controller.BaseServlet 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		CategoryServices categoryServices = new CategoryServices(entityManager, request, response);
+		CategoryServices categoryServices = new CategoryServices(request, response);
 		categoryServices.createCategory();
 		
 		

@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bookstore.controller.BaseServlet;
+
 import com.bookstore.service.UserServices;
 
 @WebServlet("/admin/login")
 
-public class AdminLoginServlet extends BaseServlet {
+public class AdminLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     public AdminLoginServlet() {
@@ -24,7 +24,7 @@ public class AdminLoginServlet extends BaseServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserServices services = new UserServices(entityManager, request, response);
+		UserServices services = new UserServices(request, response);
 		services.login();
 		
 

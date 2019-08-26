@@ -35,7 +35,7 @@ a:active{
 }
 table {
 	border: 1px solid black;
-	border-collapse: collapse;
+	border-collapse: collapse;	
 }
 th, td{
 	padding: 8px;
@@ -48,7 +48,7 @@ th {
 }
 
 table.form{
-	border:0;
+	border:0;	
 	padding: 4px;
 }
 button {
@@ -80,5 +80,70 @@ input{
 	font-style: italic;
 	margin: 5px;
 }
+div.center{
+	text-align: center;
+	
+	
+}
+table.book{	
+	width: 80%;		
+	border-style: none;
+	margin: 0 auto;
+  	
+	
+}
 
+div.book{	
+	display: inline-block;	
+	margin: 20px;	
+	text-align: center;
+		
+}
+div.book_group{	
+	margin: 0 auto;	
+	width: 80%;
+		
+}
+div.next_row{
+	clear: both;
+}
+img.book_small{
+	width: 128px;
+	height: 164px;
+}
+img.book_larger{
+	width: 240x;
+	height: 300px;
+}
+#book-title{
+	font-size: x-large;
+	font-weight: bold;
+}
+#book-author{
+	font-size: large;
+	font-style: italic;	
+}
+#description{
+	text-align: justify;
+	vertical-align: top;
+	
+}
 
+#search-image{
+	display: inline-block;
+	margin: 20px;
+	width: 10%;	
+}	
+#search-title{
+	display: inline-block;
+	margin: 20px;
+	vertical-align: top;
+	width: 60%;
+	text-align: left;
+	
+}
+#search-price{
+	display: inline-block;
+	margin: 20px; 
+	vertical-align: top;
+}

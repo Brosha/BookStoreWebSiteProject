@@ -11,24 +11,24 @@
 </head>
 <body>
 	<jsp:directive.include file="header.jsp"/>
-	<div align="center">
+	<div class="center">
 	<c:if test="${fn:length(listBooks)==0}">
 		<h2>No Results for "${keyword}" found</h2>
 	</c:if>
 	<c:if test="${fn:length(listBooks)>0}">							
-		<div align="left" style="width: 80%; margin: 0 auto;">
+		<div class="book_group">
 			<h2 align="center">Results for "${keyword}":</h2>
 			<c:forEach items="${listBooks}" var="book">
 				<div>
-					<div style="display: inline-block; margin: 20px; width: 10%" >
+					<div id="search-image" >
 						<div align="left">
 							<a href="view_book?id=${book.bookId}">
-								<img src="data:image/jpg;base64,${book.base64Image}" width="128" height="164"/>
+								<img class="book_small" src="data:image/jpg;base64,${book.base64Image}"/>
 							</a>
 						</div>
 			
 					</div>
-					<div style="display: inline-block; margin: 20px; vertical-align: top; width: 60%" align="left">
+					<div id="search-title">
 						<div>
 							<h2><a href="view_book?id=${book.bookId}">
 								<b>${book.title}</b>
@@ -43,7 +43,7 @@
 						</div>
 									
 					</div>
-					<div style="display: inline-block; margin: 20px; vertical-align: top;">
+					<div id="search-price">
 						<h3>$${book.price}</h3>
 						<h3><a>Add to Cart</a></h3>
 					</div>	

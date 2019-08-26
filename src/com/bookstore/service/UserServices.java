@@ -3,8 +3,6 @@ package com.bookstore.service;
 import java.io.IOException;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,13 +15,11 @@ import com.bookstore.dao.UserDAO;
 public class UserServices {
 	private UserDAO userDAO;
 	
-	private EntityManager entityManager;
 	private HttpServletRequest request;
 	private HttpServletResponse response;
-	public UserServices(EntityManager entityManager ,HttpServletRequest request, HttpServletResponse response) {
-		
-		this.entityManager = entityManager;
-		userDAO= new UserDAO(entityManager);
+	public UserServices(HttpServletRequest request, HttpServletResponse response) {
+	
+		userDAO= new UserDAO();
 		this.response = response;
 		this.request = request;
 		

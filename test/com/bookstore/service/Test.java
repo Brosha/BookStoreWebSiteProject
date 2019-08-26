@@ -19,7 +19,7 @@ public class Test {
 	
 		entityManagerFactory = Persistence.createEntityManagerFactory("BookStoreWebSite");
 		entityManager = entityManagerFactory.createEntityManager();
-		userDAO= new UserDAO(entityManager);
+		userDAO= new UserDAO();
 	
 	
 		List<Users> listUsers =  userDAO.listAll();
