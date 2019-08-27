@@ -50,7 +50,14 @@ th {
 table.form{
 	border:0;	
 	padding: 4px;
+	
 }
+table.book-form{
+	border:0;	
+	padding: 4px;
+	width: 80%;
+}
+
 button {
 	padding: 6px;
 	border-radius: 5px;	
@@ -112,7 +119,7 @@ img.book_small{
 	height: 164px;
 }
 img.book_larger{
-	width: 240x;
+	width: 240px;
 	height: 300px;
 }
 #book-title{

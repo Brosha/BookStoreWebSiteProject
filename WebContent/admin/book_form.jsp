@@ -9,9 +9,13 @@
 	<title>Create new Book</title>
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="stylesheet" href="../css/jquery-ui.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/richtext.min.css">
+	
 	<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.validate.js"></script>
 	<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.richtext.min.js"></script>
 	
 </head>
 <body>
@@ -46,7 +50,7 @@
 		<c:if test="${book ==null}">
 			<form action="create_book" method="post" id="bookForm" enctype="multipart/form-data">
 		</c:if>		
-			<table class="form">
+			<table class="book-form">
 				<tr>
 					<td>Category:</td>				
 					<td>
@@ -93,7 +97,7 @@
 					<td align="left">
 						<input type="file" id="bookImage" name="bookImage" size="20" /><br/>
 						<img id="thumbnail" alt="Image Preview" style="width:20%; margin-top:10px"
-						src="data:image/jpg;base64,${book.base64Image}" width="84" height="110" />				
+						src="data:image/jpg;base64,${book.base64Image}"/>				
 					
 					</td>
 				<tr>
@@ -130,6 +134,7 @@
 
 	$(document).ready(function() {
 		$('#publishDate').datepicker();
+		$('#description').richText();
 		$("#bookImage").change(function(){
 			showImageThumbnail(this);
 			
@@ -145,7 +150,7 @@
 				isbn: "required",
 				publishDate: "required",
 				<c:if test="${book = null}">				
-				bookImage: "required",
+					bookImage: "required",
 				</c:if>
 				price: "required",
 				description: "required",

@@ -116,7 +116,7 @@ public class BookServices {
 		Integer bookId = Integer.parseInt(request.getParameter("bookId"));
 		Book existBook = bookDAO.get(bookId);
 		Book bookByTitle= bookDAO.findByTitle(request.getParameter("title"));
-		if(!existBook.equals(bookByTitle)){
+		if(bookByTitle!=null && !existBook.equals(bookByTitle)){
 			request.setAttribute("message", "Could not create Book. A book with title:"
 					+ " "+request.getParameter("title")+" already exists");
 			request.setAttribute("book", existBook);

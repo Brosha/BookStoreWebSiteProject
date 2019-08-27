@@ -1,8 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div align="center">
-	<img src="../images/BookstoreAdminLogo.png" />
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
-
-
+	<a href="${pageContext.request.contextPath}/admin/">
+		<img src="../images/BookstoreAdminLogo.png" />		
+	</a>
 	<div>
 		Welcome, <c:out value="${sessionScope.useremail}"></c:out> | <a href="logout">Logout</a>
 		<br/><br/>

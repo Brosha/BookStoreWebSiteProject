@@ -157,6 +157,13 @@ public class BookDAOTest extends BaseDAOTest{
 	}
 	
 	@Test
+	
+	public void testCountByCategory() {
+		assertTrue(bookDao.count(13)==5);
+		
+	}
+	
+	@Test
 	public void testFindByTitle() {
 		Book book = bookDao.findByTitle("Effective Java (3nd Edition)");
 		assertTrue(book.getTitle().equals("Effective Java (3nd Edition)"));
@@ -195,5 +202,6 @@ public class BookDAOTest extends BaseDAOTest{
 		
 	}
 	
+
 
 }
