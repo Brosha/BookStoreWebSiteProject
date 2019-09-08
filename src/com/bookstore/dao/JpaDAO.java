@@ -126,6 +126,10 @@ public long countWithNamedQuery(String queryName, String paramName, Object param
 		return result;
 		
 	}
+
+	public static void close() {
+		entityManagerFactory.close();
+	}
 	
 	
 }

@@ -77,9 +77,9 @@
 	
 	$(document).ready(function(){
 	
-		$(".deleteLink").each(function(){
+		$(".deleteLink").each(function(){				
+			$(this).on("click", function(){
 				bookId =$(this).attr("id");
-			$(this).on("click", function(){				
 				if(confirm("Are you shure you want to delete the book with ID "+bookId+"?")){
 					window.location ='delete_book?id='+bookId;
 				}

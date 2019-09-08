@@ -66,9 +66,9 @@
 	
 	$(document).ready(function(){
 	
-		$(".deleteLink").each(function(){
+		$(".deleteLink").each(function(){				
+			$(this).on("click", function(){
 				categoryId =$(this).attr("id");
-			$(this).on("click", function(){				
 				if(confirm("Are you shure you want to delete the category with ID "+categoryId+"?")){
 					window.location ='delete_category?id='+categoryId;
 				}

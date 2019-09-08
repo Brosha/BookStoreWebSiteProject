@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,6 +23,12 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "customer", catalog = "bookstoredb", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@NamedQueries({
+	@NamedQuery(name = "Customer.findAll", query =" select c from Customer c Order by c.registerDate DESC"),
+	@NamedQuery(name = "Customer.countAll", query = "select Count(*) from Customer c"),
+	@NamedQuery(name = "Customer.checkLogin", query= "select c from Customer c Where c.email = :email AND c.password=:password"),
+	@NamedQuery(name = "Customer.findByEmail", query = "select c from Customer c where c.email=:email"),
+})
 public class Customer implements java.io.Serializable {
 
 	private Integer customerId;
@@ -32,6 +40,7 @@ public class Customer implements java.io.Serializable {
 	private String zipcode;
 	private String password;
 	private Date registerDate;
+	private String phone;
 	private Set<Review> reviews = new HashSet<Review>(0);
 	private Set<BookOrder> bookOrders = new HashSet<BookOrder>(0);
 
@@ -39,7 +48,7 @@ public class Customer implements java.io.Serializable {
 	}
 
 	public Customer(String email, String fullname, String address, String city, String country, String zipcode,
-			String password, Date registerDate) {
+			String password, Date registerDate, String phone) {
 		this.email = email;
 		this.fullname = fullname;
 		this.address = address;
@@ -48,10 +57,11 @@ public class Customer implements java.io.Serializable {
 		this.zipcode = zipcode;
 		this.password = password;
 		this.registerDate = registerDate;
+		this.phone = phone;
 	}
 
 	public Customer(String email, String fullname, String address, String city, String country, String zipcode,
-			String password, Date registerDate, Set<Review> reviews, Set<BookOrder> bookOrders) {
+			String password, Date registerDate, String phone , Set<Review> reviews, Set<BookOrder> bookOrders) {
 		this.email = email;
 		this.fullname = fullname;
 		this.address = address;
@@ -60,6 +70,7 @@ public class Customer implements java.io.Serializable {
 		this.zipcode = zipcode;
 		this.password = password;
 		this.registerDate = registerDate;
+		this.phone = phone;
 		this.reviews = reviews;
 		this.bookOrders = bookOrders;
 	}
@@ -137,6 +148,16 @@ public class Customer implements java.io.Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	
+	@Column(name = "phone", nullable = false, length = 15)
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

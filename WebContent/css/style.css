@@ -99,6 +99,13 @@ table.book{
   	
 	
 }
+table.customerProfile{	
+	width: auto;		
+	border-style: none;
+	margin: 0 auto;  	
+	border:0;
+	
+}
 
 div.book{	
 	display: inline-block;	
