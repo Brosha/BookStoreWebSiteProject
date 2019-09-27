@@ -57,6 +57,10 @@ table.book-form{
 	padding: 4px;
 	width: 80%;
 }
+table.normal{
+	border:0;
+	border-style: none;
+}
 
 button {
 	padding: 6px;

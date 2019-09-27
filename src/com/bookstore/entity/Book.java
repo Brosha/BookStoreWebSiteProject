@@ -2,9 +2,12 @@ package com.bookstore.entity;
 // Generated 10.08.2019 20:21:53 by Hibernate Tools 5.2.12.Final
 
 import java.util.Base64;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -182,9 +185,20 @@ public class Book implements java.io.Serializable {
 		this.lastUpdateTime = lastUpdateTime;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "book")
 	public Set<Review> getReviews() {
-		return this.reviews;
+		TreeSet<Review> sortetReviews = new TreeSet<>(new Comparator<Review>() {
+
+			@Override
+			public int compare(Review review1, Review review2) {
+				
+				return review2.getReviewTime().compareTo(review1.getReviewTime());
+			}
+			
+			
+		});
+		sortetReviews.addAll(reviews);
+		return sortetReviews;
 	}
 
 	public void setReviews(Set<Review> reviews) {
@@ -210,6 +224,48 @@ public class Book implements java.io.Serializable {
 	public void setBase64Image(String image) {
 		this.base64Image=image;
 	}
+	@Transient
+	public float getAverageRating() {
+		float averageRating= 0.0f;
+		float sum = 0.0f;
+		if(reviews.isEmpty()) {
+			return 0.0f;
+		}
+		for (Review review : reviews) {
+			sum+=review.getRating();
+		}
+		averageRating= sum/reviews.size();
+		return averageRating;
+	}
+	
+	@Transient
+	public String getRatingString(float averageRating) {
+		String result ="";
+		int numberOfStarsOn = (int) averageRating;
+		for(int i=1; i<=numberOfStarsOn; i++) {
+			result +="on,";
+			
+		}
+		int next = numberOfStarsOn +1;
+		if (averageRating > numberOfStarsOn){
+			result +="half,";
+			next++;
+		}
+		for (int i =next; i<=5; i++) {
+			result +="off,";
+		}
+		
+		return result.substring(0, result.length()-1);
+		
+	}
+	@Transient
+	public String getRatingStars() {
+		float averageRating = getAverageRating();
+		return getRatingString(averageRating);
+		
+		
+	}
+	
 
 	@Override
 	public int hashCode() {

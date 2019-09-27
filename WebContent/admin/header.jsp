@@ -27,11 +27,11 @@
 			<img src="../images/customer.png"/> <br/>Customers</a>	
 	</div>
 	<div>
-		<a href="reviews">
+		<a href="list_review">
 			<img src="../images/review.png"/> <br/>Reviews</a>
 	</div>
 	<div>
-		<a href="orders">
+		<a href="list_orders">
 			<img src="../images/order.png"/><br/> Orders</a>
 	</div>
 	

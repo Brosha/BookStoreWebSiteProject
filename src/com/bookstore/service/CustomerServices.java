@@ -7,6 +7,9 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.hibernate.Session;
 
 import com.bookstore.dao.CategoryDAO;
 import com.bookstore.dao.CustomerDAO;
@@ -140,15 +143,24 @@ public class CustomerServices {
 		String email = request.getParameter("email");
 		String password =  request.getParameter("password");
 		boolean loginResult = customerDAO.checkLogin(email, password);
+		
 		if(loginResult) {
 			request.getSession().setAttribute("loggedCustomer", customerDAO.findByEmail(email));
+			String redirectURL = (String) request.getSession().getAttribute("redirectURL");
+			if(redirectURL!=null) {
+				request.getSession().removeAttribute("redirectURL");
+				response.sendRedirect(redirectURL);
+				
+			} else {
 			response.sendRedirect(request.getContextPath());
+			}
 		}
 		else {
 			String message = "Login failed!";
-			request.setAttribute("message", message);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
-			requestDispatcher.forward(request, response);
+			request.getSession().setAttribute("message", message);
+			response.sendRedirect(request.getContextPath()+"/login");
+			
+			
 			
 		
 	}

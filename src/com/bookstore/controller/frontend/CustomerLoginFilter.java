@@ -17,7 +17,8 @@ import org.hibernate.Session;
 
 @WebFilter("/*")
 public class CustomerLoginFilter implements Filter {
-	private static final String[] LoginRequieredUrls = {"/view_profile", "/edit_profile", "/update_profile" } ;
+	private static final String[] LoginRequieredUrls = {"/view_profile", "/edit_profile",
+			"/update_profile","/write_review","/checkout","/place_order", "/view_orders","/show_order_detail" } ;
     public CustomerLoginFilter() {
         
     }
@@ -38,6 +39,12 @@ public class CustomerLoginFilter implements Filter {
 			return;
 		}
 		if(!loggedIn && isLoginRequiredUrl(path)) {
+			String redirectURL= httpRequest.getRequestURL().toString();
+			String queryString= httpRequest.getQueryString();
+			if(queryString!=null)
+				redirectURL+="?"+queryString;
+			
+			session.setAttribute("redirectURL", redirectURL);
 			RequestDispatcher dispatcher = httpRequest.getRequestDispatcher("/login");
 			dispatcher.forward(httpRequest, response);
 		}

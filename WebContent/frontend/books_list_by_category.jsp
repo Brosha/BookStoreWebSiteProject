@@ -27,7 +27,9 @@
 						<b>${book.title}</b>
 					</a>
 				</div>
-				<div>Rating</div>
+				<div>
+					<jsp:directive.include file="book_rating.jsp"/>
+				</div>
 				<div>
 					<i>${book.author}</i>
 				</div>

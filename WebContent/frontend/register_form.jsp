@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="css/jquery-ui.min.css">	
 
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="js/jquery.validate.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 
 	
