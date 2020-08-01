@@ -109,6 +109,15 @@ private static OrderDAO orderDao;
 		assertEquals(2, bookOrder.getOrderDetails().size());
 	}
 	
+	@Test
+	void testGetByIdAndCustomerNull() {
+		Integer orderId =100;
+		Integer customerId = 100;
+		BookOrder order = orderDao.get(orderId, customerId);
+		assertNull(order);
+	}
+	
+	
 
 	@Test
 	void testUpdateBookOrder() {
@@ -164,6 +173,22 @@ private static OrderDAO orderDao;
 			}
 		}
 	}
+	@Test
+	void testListByCustomerNoOrder() {
+		Integer customerId =99;
+		List<BookOrder> listOrders = orderDao.listByCustomer(customerId);
+		assertTrue(listOrders.isEmpty());
+		
+	}
+	@Test
+	void testListByCustomerHaveOrders() {
+		Integer customerId =1;
+		List<BookOrder> listOrders = orderDao.listByCustomer(customerId);
+		assertTrue(!listOrders.isEmpty());
+		
+	}
+	
+	
 	
 	
 	@Test
@@ -188,6 +213,14 @@ private static OrderDAO orderDao;
 	void testCount() {
 		
 		assertTrue(orderDao.count()==2);
+	}
+	
+	@Test
+	public void testListRecentOrders() {
+		List<BookOrder> orders= orderDao.listRecentOrders();
+		for(BookOrder order : orders) {
+			System.out.println(order.getCustomer().getFullname());
+		}
 	}
 
 }

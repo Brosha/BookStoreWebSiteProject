@@ -32,7 +32,8 @@ public class CustomerDAOTest extends BaseDAOTest {
 		customer.setCity("New York");
 		customer.setCountry("United States");
 		customer.setZipcode("100000");
-		customer.setPassword("password");		
+		customer.setPassword("password");
+		customer.setPhone("6996");
 		Customer savedCustomer=customerDao.create(customer);
 		assertTrue(savedCustomer.getCustomerId()>0);
 	}

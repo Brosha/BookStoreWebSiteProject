@@ -38,7 +38,7 @@ public class BookDAOTest extends BaseDAOTest{
 		Book book = new Book();
 		Category category = new Category();
 		category.setName("Advanced Java");
-		category.setCategoryId(13);
+		category.setCategoryId(1);
 		book.setCategory(category);
 		book.setTitle("Effective Java (2nd Edition)");
 		book.setAuthor("Joshua Bloch");
@@ -48,9 +48,12 @@ public class BookDAOTest extends BaseDAOTest{
 		DateFormat dateFormat= new SimpleDateFormat("MM/dd/yyyy");		
 		Date publishDate = dateFormat.parse("05/28/2008");		
 		book.setPublishDate(publishDate);
-		String imagePath = "C:\\BookStoreProject\\dummy-data-books\\books\\Effective Java.jpg";
+		
+		String imagePath = "D:\\BookStoreWebSiteProject\\dummy-data-books\\books\\Effective Java.jpg";
 		byte[] imageBytes = Files.readAllBytes(Paths.get(imagePath));
 		book.setImage(imageBytes);
+		
+		
 		Book createdBook = bookDao.create(book);
 		assertTrue(createdBook.getBookId()>0);
 		
@@ -62,7 +65,7 @@ public class BookDAOTest extends BaseDAOTest{
 		Book book = new Book();
 		Category category = new Category();
 		category.setName("Advanced Java");
-		category.setCategoryId(13);
+		category.setCategoryId(1);
 		book.setCategory(category);
 		book.setTitle("Java 8 in Action: Lambdas, Streams, and functional-style programming");
 		book.setAuthor("Raoul-Gabriel Urma, Mario Fusco, Alan Mycroft");
@@ -74,7 +77,7 @@ public class BookDAOTest extends BaseDAOTest{
 		DateFormat dateFormat= new SimpleDateFormat("MM/dd/yyyy");		
 		Date publishDate = dateFormat.parse("08/28/2014");		
 		book.setPublishDate(publishDate);
-		String imagePath = "C:\\BookStoreProject\\dummy-data-books\\books\\Java 8 in Action.jpg";
+		String imagePath = "D:\\BookStoreWebSiteProject\\dummy-data-books\\books\\Java 8 in Action.jpg";
 		byte[] imageBytes = Files.readAllBytes(Paths.get(imagePath));
 		book.setImage(imageBytes);
 		Book createdBook = bookDao.create(book);
@@ -101,7 +104,7 @@ public class BookDAOTest extends BaseDAOTest{
 		DateFormat dateFormat= new SimpleDateFormat("MM/dd/yyyy");		
 		Date publishDate = dateFormat.parse("05/28/2008");		
 		book.setPublishDate(publishDate);
-		String imagePath = "C:\\BookStoreProject\\dummy-data-books\\books\\Effective Java.jpg";
+		String imagePath = "D:\\BookStoreWebSiteProject\\dummy-data-books\\books\\Effective Java.jpg";
 		byte[] imageBytes = Files.readAllBytes(Paths.get(imagePath));
 		book.setImage(imageBytes);
 		
@@ -200,6 +203,23 @@ public class BookDAOTest extends BaseDAOTest{
 		}
 		assertTrue(books.size()==1);
 		
+	}
+	
+	@Test
+	public void testListBestSellingBooks() {
+		List<Book> books = bookDao.listBestSellingBooks();
+		assertTrue(books.size()!=0);
+		
+	}
+	
+	@Test
+	public void listMostFavoredBooks(){
+		List<Book> books = bookDao.listMostFavoredBooks();
+		for(Book book: books) {
+			System.out.println(book.getTitle());
+		}
+		System.out.print("================================="+books.size());
+		assertTrue(books.size()!=0);
 	}
 	
 

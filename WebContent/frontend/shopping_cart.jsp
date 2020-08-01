@@ -108,7 +108,7 @@
 		$("#cartForm").validate({
 			rules:{
 				<c:forEach items="${cart.items}" var="item" varStatus="status">
-					quantity${status.index+1} : {
+					quantity${status.index+1}: {
 						required: true,
 						number:true,
 						min: 1
@@ -119,7 +119,7 @@
 			},
 			 messages:{
 				 <c:forEach items="${cart.items}" var="item" varStatus="status">
-					quantity${status.index+1} : {
+					quantity${status.index+1}: {
 						required: "Please enter quantity",
 						number: "Quantity must be a number",
 						min: "Quantity must be greater than 0"

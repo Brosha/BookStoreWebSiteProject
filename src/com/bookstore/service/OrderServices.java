@@ -11,6 +11,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bookstore.controller.frontend.shoppingcart.ShoppingCart;
 import com.bookstore.dao.BookDAO;
@@ -140,6 +141,104 @@ public class OrderServices {
 		String detailPage = "frontend/order_detail.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(detailPage);
 		dispatcher.forward(request, response);
+		
+	}
+
+
+
+	public void showEditOrderForm() throws ServletException, IOException {
+		Integer bookOderId = Integer.parseInt(request.getParameter("id"));
+		
+		
+		
+		
+		HttpSession session = request.getSession();
+		Object isAddedBook = session.getAttribute("NewBookAdded");
+		if(isAddedBook== null) {
+			BookOrder bookOrder = orderDAO.get(bookOderId);
+			session.setAttribute("order", bookOrder);
+			
+		}
+		else {
+			session.removeAttribute("NewBookAdded");
+		}
+		
+		
+		
+		String detailPage = "order_form.jsp";
+		RequestDispatcher dispatcher = request.getRequestDispatcher(detailPage);
+		dispatcher.forward(request, response);
+	}
+
+
+
+	public void updateOrder() throws ServletException, IOException {
+		HttpSession httpSession = request.getSession();
+		BookOrder bookOrder = (BookOrder) httpSession.getAttribute("order");
+		
+		String recipientName = request.getParameter("recipientName");
+		String recipientPhone = request.getParameter("recipientPhone");
+		String shippingAddress = request.getParameter("shippingAddress");
+		String paymentMethod = request.getParameter("paymentMethod");
+		String orderStatus = request.getParameter("orderStatus");
+		
+		bookOrder.setRecipientName(recipientName);
+		bookOrder.setRecipientPhone(recipientPhone);
+		bookOrder.setShippingAddress(shippingAddress);
+		bookOrder.setPaymentMethod(paymentMethod);
+		bookOrder.setStatus(orderStatus);
+		String[] arrayBookId = request.getParameterValues("bookId");
+		String[] arrayPrice= request.getParameterValues("price");
+		String[] arrayQuantity= new String[arrayBookId.length];
+		
+		for(int i=1; i<=arrayQuantity.length;i++) {
+			arrayQuantity[i-1]=request.getParameter("quantity"+1);
+		}
+		
+		float totalAmount=0.0f;
+		
+		Set<OrderDetail> orderDetails = bookOrder.getOrderDetails();
+		orderDetails.clear();
+		for(int i=0; i<arrayBookId.length; i++) {
+			System.out.println("================:  "+arrayBookId.length);
+			int bookId = Integer.parseInt(arrayBookId[i]);
+			int quantity = Integer.parseInt(arrayQuantity[i]);
+			
+			float price = Float.parseFloat(arrayPrice[i]);
+			float subtotal = price * quantity;
+			OrderDetail orderDetail = new OrderDetail();
+			Book book = new Book();
+			book.setBookId(bookId);
+			orderDetail.setBook(book);
+			orderDetail.setSubtotal(subtotal);
+			orderDetail.setBookOrder(bookOrder);
+			orderDetail.setQuantity(quantity);
+			
+			orderDetails.add(orderDetail);
+			
+			totalAmount +=subtotal;
+			
+			
+		}
+		
+		bookOrder.setTotal(totalAmount);
+		orderDAO.update(bookOrder);
+		String message = "The order "+ bookOrder.getOrderId()+"has been update successfully";
+		
+		request.setAttribute("message", message);
+		listAllOrders();
+		
+	}
+
+
+
+	public void deleteOrder() throws ServletException, IOException {
+		Integer bookOderId = Integer.parseInt(request.getParameter("id"));
+		orderDAO.delete(bookOderId);
+		
+		String message="The Order ID "+bookOderId+" has been delated.";
+		request.setAttribute("message", message);
+		listAllOrders();
 		
 	}
 

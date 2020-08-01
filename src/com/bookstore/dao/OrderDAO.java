@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.bookstore.entity.Book;
 import com.bookstore.entity.BookOrder;
-;
+
 
 public class OrderDAO extends JpaDAO<BookOrder> implements GenericDAO<BookOrder> {
 
@@ -66,12 +67,17 @@ public class OrderDAO extends JpaDAO<BookOrder> implements GenericDAO<BookOrder>
 		
 		return super.findWithNamedQuery("BookOrder.findByCustomer", "customerId", customerId);
 	}
+	
+	public List<BookOrder> listRecentOrders(){
+		return super.findWithNamedQuery("BookOrder.findAll", 0, 3);
+	}
 
 
 	@Override
 	public void delete(Object id) {
 		super.delete(BookOrder.class, id);
 		
-	}
+	}	
+	
 
 }

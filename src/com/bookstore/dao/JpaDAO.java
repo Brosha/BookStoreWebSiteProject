@@ -106,6 +106,19 @@ public class JpaDAO<T> {
 		
 		
 	}
+	public List<Object[]> findWithNamedQuery1(String queryName, int firstResult, int maxResult){
+		EntityManager entityManager =entityManagerFactory.createEntityManager();
+		Query query = entityManager.createNamedQuery(queryName);
+		query.setFirstResult(firstResult);
+		query.setMaxResults(maxResult);
+		List<Object[]> result=query.getResultList();
+		entityManager.close();
+		return result;	
+		
+		
+	}
+	
+	
 	
 	
 	public long countWithNamedQuery(String queryName) {

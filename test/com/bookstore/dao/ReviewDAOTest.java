@@ -133,5 +133,10 @@ public class ReviewDAOTest {
 	public void testCountWithNamedQueryStringStringObject() {
 		fail("Not yet implemented");
 	}
+	@Test
+	public void testListRecentReviews() {
+		List<Review> reviews = reviewDao.listRecentReviews();
+		assertTrue(reviews.size()!=0);
+	}
 
 }

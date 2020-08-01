@@ -126,8 +126,10 @@ public class CustomerServices {
 			Customer customer = new Customer();
 			fillCustomer(customer);
 			customerDAO.create(customer);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");			
-			requestDispatcher.forward(request, response);
+			request.getSession().setAttribute("message", "Thanks for Registration!");			
+			response.sendRedirect(request.getContextPath()+"/login");
+			//RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");			
+			//requestDispatcher.forward(request, response);
 		}
 		
 	}

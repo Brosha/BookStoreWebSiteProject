@@ -126,7 +126,7 @@
 	&nbsp;
 	<div>
 		</br>
-		<a href="">Edit this Order</a>
+		<a href="edit_order?id=${order.orderId}">Edit this Order</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="">Delete this Order</a>
 	</div>

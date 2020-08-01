@@ -36,6 +36,16 @@ public class CategoryDAOTest extends BaseDAOTest {
 	}
 	
 	@Test
+	public void testCreateCategory2() {
+		Category newCategory = new Category("Advanced Java");
+		Category createdCategory = categoryDAO.create(newCategory);
+		System.out.println(createdCategory.getCategoryId());
+		assertTrue(createdCategory!=null && createdCategory.getCategoryId()>0);
+	}
+	
+	
+	
+	@Test
 	public void testGet() {
 		Category category = categoryDAO.get(25);
 		assertNotNull(category);

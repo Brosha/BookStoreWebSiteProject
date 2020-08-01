@@ -1,5 +1,5 @@
 package com.bookstore.entity;
-// Generated 30.05.2019 22:28:41 by Hibernate Tools 5.2.12.Final
+
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -26,7 +26,11 @@ import javax.persistence.Transient;
 	@NamedQuery(name = "Review.listAll", query = "select r from Review r order by r.reviewTime DESC"),
 	@NamedQuery(name = "Review.countAll", query = "select Count(*) from Review r"),
 	@NamedQuery(name = "Review.findByCustomerAndBook", query = "select r from Review r where r.customer.customerId=:customerId"
-			+ " AND r.book.bookId=:bookId")
+			+ " AND r.book.bookId=:bookId"),
+	@NamedQuery(name ="Review.mostFavoredBooks",
+		query="SELECT r.book, COUNT(r.book.bookId) AS ReviewCount, AVG(r.rating) as AvgRating FROM Review r"
+				+ " GROUP BY r.book.bookId HAVING AVG(r.rating)>=4.0 ORDER BY ReviewCount DESC, AvgRating DESC"
+			)
 	
 	
 })

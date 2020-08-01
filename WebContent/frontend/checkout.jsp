@@ -111,7 +111,7 @@
 						<h2>Payment</h2>
 						Choose Your Payment method: &nbsp;&nbsp;&nbsp; <select
 							name="paymentMethod">
-							<option value="cashOnDelivery">Cash On Delivery</option>
+							<option value="Cash On Delivery">Cash On Delivery</option>
 						</select>
 					</div>
 
