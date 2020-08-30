@@ -1,9 +1,5 @@
 package com.bookstore.entity;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import com.bookstore.dao.UserDAO;
 
 public class Check {

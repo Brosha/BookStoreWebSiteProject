@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.NamedQuery;
-
 import com.bookstore.entity.Review;
 
 public class ReviewDAO extends JpaDAO<Review> implements GenericDAO<Review> {

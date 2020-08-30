@@ -2,9 +2,6 @@ package com.bookstore.controller.frontend.shoppingcart;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 

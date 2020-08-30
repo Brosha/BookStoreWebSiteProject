@@ -2,7 +2,6 @@ package com.bookstore.controller.admin;
 
 import java.io.IOException;
 
-import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

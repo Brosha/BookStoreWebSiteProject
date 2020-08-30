@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bookstore.service.BookServices;
-import com.bookstore.service.CategoryServices;
 @WebServlet("/admin/delete_book")
 public class DeleteBookServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;

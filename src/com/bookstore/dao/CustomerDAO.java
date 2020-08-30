@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.bookstore.entity.Customer;
-import com.bookstore.entity.Users;
 
 public class CustomerDAO extends JpaDAO<Customer> implements GenericDAO<Customer> {
 

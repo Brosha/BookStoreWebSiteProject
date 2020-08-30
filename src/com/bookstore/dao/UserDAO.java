@@ -1,12 +1,9 @@
 
 package com.bookstore.dao;
 
-import java.security.PublicKey;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.persistence.EntityManager;
 
 import com.bookstore.entity.Users;
 

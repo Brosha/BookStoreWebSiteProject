@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bookstore.dao.BookDAO;
-import com.bookstore.entity.Book;
-
 
 @WebServlet("/view_cart")
 public class ViewCartServlet extends HttpServlet {
